@@ -5,6 +5,14 @@ pipeline {
         SERVER_IMAGE = 'jenkins-demo-server'
     }
     stages {
+     
+        stage('Checkout') {
+            steps {
+                echo '📥 Cloning repository...'
+                git branch: 'main',
+                    url: 'https://github.com/Nileshshinde09/Jenkins-Deployment-Template.git'
+            }
+        }
         stage("Build Docker Image"){
             parallel {
                 stage("Build Client Image"){
