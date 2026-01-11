@@ -5,7 +5,11 @@ pipeline {
         SERVER_IMAGE = 'jenkins-demo-server'
     }
     stages {
-     
+        stage('Clean Workspace'){
+            steps{
+                cleanWs()
+            }
+        }
         stage('Checkout') {
             steps {
                 echo '📥 Cloning repository...'
