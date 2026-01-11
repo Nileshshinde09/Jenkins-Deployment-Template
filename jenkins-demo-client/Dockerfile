@@ -6,15 +6,15 @@ WORKDIR /app
 RUN npm install -g pnpm
 
 # Copy package files
-COPY package.json pnpm-lock.yaml* ./
+COPY package.json pnpm-lock.yaml ./
 
 # Install dependencies
 RUN pnpm install
 
-# Install Playwright browsers (critical!)
-RUN pnpm exec playwright install --with-deps chromium
+# Install Playwright browsers
+RUN pnpm exec playwright install --with-deps
 
-# Copy source code
+# Copy source
 COPY . .
 
 # Default command
