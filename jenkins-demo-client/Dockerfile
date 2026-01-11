@@ -1,6 +1,21 @@
-FROM mcr.microsoft.com/playwright:v1.48.0-jammy
+# jenkins-demo-client/Dockerfile
+
+FROM node:20-alpine
 
 WORKDIR /app
+
+# Install system dependencies for Playwright
+RUN apk add --no-cache \
+    chromium \
+    nss \
+    freetype \
+    harfbuzz \
+    ca-certificates \
+    ttf-freefont
+
+# Set Playwright to use system Chromium
+ENV PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1 \
+    PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH=/usr/bin/chromium-browser
 
 # Install pnpm
 RUN npm install -g pnpm
@@ -10,9 +25,6 @@ COPY package.json pnpm-lock.yaml ./
 
 # Install dependencies
 RUN pnpm install
-
-# Install Playwright browsers
-RUN pnpm exec playwright install --with-deps
 
 # Copy source
 COPY . .
