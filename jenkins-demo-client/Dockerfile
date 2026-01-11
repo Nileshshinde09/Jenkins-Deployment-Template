@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/playwright:v1.48.0-jammy
+FROM node:20-alpine
 
 WORKDIR /app
 
@@ -10,9 +10,6 @@ COPY package.json pnpm-lock.yaml ./
 
 # Install dependencies
 RUN pnpm install
-
-# Install Playwright browsers
-RUN pnpm exec playwright install --with-deps
 
 # Copy source
 COPY . .
